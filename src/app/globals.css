@@ -45,3 +45,35 @@ body {
   height: 100vh; 
   width: 100%;
 }
+
+.text-color {
+  color: #171717;
+}
+
+.sub-text-color {
+  color: #736e6e;
+}
+
+.bg {
+  background-color: #d7d5d4;
+}
+
+.bg-dark {
+  background-color: #cecfcf;
+} 
+
+.button-bg {
+  background-color: #e9e9e9;
+}
+
+.my-text-bg {
+  background-color: #d1bd95;
+}
+
+.line-bg {
+  background-color: #b7b3b3;
+}
+
+.scroll-bg {
+  background-color: #555555;
+}

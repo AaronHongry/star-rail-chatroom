@@ -16,7 +16,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         style={{fontFamily: "DIN"}} 
-        className={` antialiased font-semibold`}
+        className={` antialiased font-semibold text-color`}
       >
         {children}
       </body>
