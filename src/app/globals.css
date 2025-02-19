@@ -77,3 +77,23 @@ body {
 .scroll-bg {
   background-color: #555555;
 }
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #b7b3b3; 
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #555555;
+}
+
+.chat-top-shadow {
+  background: linear-gradient(to bottom, #d7d5d4, rgba(215, 213, 212, 0));
+}
+
+.chat-bottom-shadow {
+  background: linear-gradient(to top, #d7d5d4, rgba(215, 213, 212, 0));
+}
