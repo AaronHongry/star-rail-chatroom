@@ -7,12 +7,34 @@ export interface MessageChatProps {
     username: string,
     pic: string,
     message: string,
-    isUser: boolean;
+    isUser: boolean,
+    enters: string
 }
 
-const MessageChat: React.FC<MessageChatProps> = ({username, pic, message, isUser}) => {
+const MessageChat: React.FC<MessageChatProps> = ({username, pic, message, isUser, enters}) => {
+
+    if (enters == "enter") {
+        return (
+            <motion.div initial={{y: 10, opacity: 0}} animate={{y: 0, opacity: 1}} className="w-full">
+                <div className="flex flex-row justify-center items-center">
+                    <p className="sub-text-color text-lg">{username} has entered the room.</p>
+                </div>
+            </motion.div>
+        );
+    }
+
+    if (enters == "leave") {
+        return (
+            <motion.div initial={{y: 10, opacity: 0}} animate={{y: 0, opacity: 1}} className="w-full">
+                <div className="flex flex-row justify-center items-center">
+                    <p className="sub-text-color text-lg">{username} has left the room.</p>
+                </div>
+            </motion.div>
+        );
+    }
+
     return (
-        <div className="w-full">
+        <motion.div initial={{y: 10, opacity: 0}} animate={{y: 0, opacity: 1}} className="w-full">
             {!isUser ? (
                 <div className="flex flex-row gap-5">
                     <Image alt="otherUserPic" src={`/images/${pic}`} className="w-[70px] h-[70px]" width={80} height={80}/>
@@ -29,9 +51,8 @@ const MessageChat: React.FC<MessageChatProps> = ({username, pic, message, isUser
                         <p className="ml-auto w-fit max-w-[300px] text-lg my-text-bg px-4 py-2 rounded-tl-xl rounded-br-xl rounded-bl-xl shadow-none drop-shadow-[1px_2px_0px_rgba(177,170,172,1)]">{message}</p>
                     </div>
                 </div>
-            )}
-            
-        </div>
+            )}  
+        </motion.div>
     )
 }
 

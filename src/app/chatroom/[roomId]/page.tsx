@@ -4,27 +4,35 @@ import { motion } from "motion/react";
 import { useParams } from "next/navigation";
 import MessageChat, { MessageChatProps } from "@/components/message"
 import { useState, useEffect, useRef } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import useSocket from "@/app/hooks/useSocket";
 
 const ChatRoom = () => {
+
+    const router = useRouter();
+
+    const { roomId } = useParams<{roomId: string}>() || {roomId: "AAAA"} ;
     
-    const { roomId } = useParams();
+    const searchParams = useSearchParams();
+    const [username, setUsername] = useState("Trailblazer");
+    const [icon, setIcon] = useState("tra-b.png");
 
     const [currentMessage, setCurrentMessage] = useState("");
 
     const chatContainerRef = useRef<HTMLDivElement>(null);
-    const [messages, setMessages] = useState<MessageChatProps[]>([
-        {username: "Dan Heng", pic: "dan-h.png", message: "Hi.", isUser: false},
-        {username: "March 7th", pic: "mar-7.png", message: "Sleeping.", isUser: false},
-        {username: "Trailblaze", pic: "tra-b.png", message: "Not on the Astral Express fam", isUser: true},
-        {username: "Dan Heng", pic: "dan-h.png", message: "These are not good answers.", isUser: false},
-        {username: "March 7th", pic: "mar-7.png", message: "Good.", isUser: false},
-    ]);
+    const [messages, setMessages] = useState<MessageChatProps[]>([]);
+
+    const { serverMessages, sendMessage } = useSocket({roomId, username, icon});
 
     const handleEnterMessage = () => {
         if (currentMessage.trim()) {
-            setMessages(prevMessages => [...prevMessages, {username: "Trailblazer", pic: "tra-b.png", message: currentMessage.trim(), isUser: true}]);
+            sendMessage(currentMessage.trim());
             setCurrentMessage("");
         }
+    }
+
+    const handleGoHome = () => {
+        router.push("/");
     }
 
     useEffect(() => {
@@ -32,6 +40,29 @@ const ChatRoom = () => {
             chatContainerRef.current.scrollTo({behavior: "smooth", top: chatContainerRef.current.scrollHeight});
         }
     }, [messages]);
+
+    useEffect(() => {
+        setMessages(serverMessages.map(message => ({username: message.username, pic: message.icon, message: message.message, isUser: (message.username == username), enters: message.enters})));
+    }, [serverMessages]);
+
+    useEffect(() => {
+        
+
+        if (searchParams) {
+            const usernameFromUrl = searchParams.get("username");
+            const iconFromUrl = searchParams.get("icon");
+
+            if (usernameFromUrl) {
+                setUsername(usernameFromUrl);
+            }
+            if (iconFromUrl) {
+                setIcon(iconFromUrl);
+            }
+        }
+        serverMessages.forEach(serverMessage => {
+            setMessages(prevMessages => [...prevMessages, {username: serverMessage.username, pic: serverMessage.icon, message: serverMessage.message, isUser: (username == serverMessage.username), enters: serverMessage.enters}]);
+        });
+    }, []);
 
     return (
         <div className="bg-image w-screen h-screen flex flex-col justify-center items-center">
@@ -50,7 +81,7 @@ const ChatRoom = () => {
                         <div className="w-full py-2 pb-4 px-3 pr-6 flex flex-col gap-6 ">
                             {messages.map((message, index) => (
                                 <div key={`message-${index}`}>
-                                    <MessageChat username={message.username} pic={message.pic} message={message.message} isUser={message.isUser}/>
+                                    <MessageChat username={message.username} pic={message.pic} message={message.message} isUser={message.isUser} enters={message.enters}/>
                                 </div>
                             ))}                    
                         </div>
@@ -59,7 +90,7 @@ const ChatRoom = () => {
 
                     <div className="w-full flex flex-col gap-1 items-center px-8 py-2 pt-6 bg-dark border-t-4 border-t-lineBg">
                         <input value={currentMessage} onChange={(e) => {setCurrentMessage(e.target.value)}} onKeyDown={(e) => {if (e.key == "Enter") {handleEnterMessage();}}} className="border-bgDark border-[1px] button-bg text-2xl py-2 w-full drop-shadow-md text-center px-8 focus:outline-none" placeholder="Type Here" />
-                        <motion.button className="sub-text-color text-xl py-2 drop-shadow-md hover:underline " >Back</motion.button>
+                        <motion.button onClick={handleGoHome} className="sub-text-color text-xl py-2 drop-shadow-md hover:underline " >Back</motion.button>
                     </div>
 
 
