@@ -33,6 +33,7 @@ const useSocket = ({roomId, username, icon}: useSocketProps) => {
 
         newSocket.on("chatHistory", (history) => {
             setMessages(history);
+            console.log(history);
         });
         
         newSocket.on("receiveMessage", (message) => {
@@ -50,7 +51,7 @@ const useSocket = ({roomId, username, icon}: useSocketProps) => {
 
     const sendMessage = (message: string) => {
         if (socket) {
-            socket.emit("sendMessage", {roomId, username, icon, message});
+            socket.emit("sendMessage", {roomId, username, icon, message, enters: ""});
         }
     };
 

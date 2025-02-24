@@ -5,10 +5,16 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 interface JoinMenuInterface {
-    onExit: () => void;
+    onExit: () => void,
+    onUserError: () => void,
+    onRoomNameError: () => void,
+    onEmptyRoomError: () => void,
+    onEmptyError: () => void,
+    onEnter: () => void
+
 }
 
-const JoinMenu: React.FC<JoinMenuInterface> = ({onExit}) => {
+const JoinMenu: React.FC<JoinMenuInterface> = ({onExit, onUserError, onRoomNameError, onEmptyRoomError, onEmptyError, onEnter}) => {
 
     const router = useRouter();
 
@@ -18,7 +24,19 @@ const JoinMenu: React.FC<JoinMenuInterface> = ({onExit}) => {
 
     const joinRoom = () => {
         if (roomNumber && username) {
+            onEnter();
             router.push(`/chatroom/${roomNumber.toUpperCase()}?username=${username}&icon=${icon}`);
+        }
+
+        if (!username && !roomNumber) {
+            onEmptyError();
+        } else {
+            if (!username) {
+                onUserError();
+            }
+            if (!roomNumber) {
+                onRoomNameError();
+            }
         }
     }
 
@@ -41,7 +59,7 @@ const JoinMenu: React.FC<JoinMenuInterface> = ({onExit}) => {
 
             <div className="w-full flex flex-col gap-2 pb-4 items-center">
                 <motion.button onClick={joinRoom} whileHover={{scale: 1.03}} whileTap={{scale: 1.1, backgroundColor: "#555555"}} className="border-bgDark border-[1px] button-bg text-2xl py-2 w-full drop-shadow-md" >Join Room</motion.button>
-                <motion.button whileHover={{scale: 1.03}} whileTap={{scale: 1.1, backgroundColor: "#555555"}} onClick={onExit} className="border-bgDark border-[1px] button-bg text-xl py-2 w-2/3 drop-shadow-md" >Back</motion.button>
+                <motion.button whileHover={{scale: 1.03}} whileTap={{scale: 1.1, backgroundColor: "#555555"}} onClick={onExit} className="sub-text-color text-xl py-0 drop-shadow-md hover:underline " >Back</motion.button>
             </div>
         
         </motion.div>

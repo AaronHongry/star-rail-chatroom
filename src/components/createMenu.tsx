@@ -6,10 +6,12 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 interface CreateMenuProps {
-    onExit: () => void;
+    onExit: () => void,
+    onUserError: () => void,
+    onEnter: () => void
 }
 
-const CreateMenu: React.FC<CreateMenuProps> = ({onExit}) => {
+const CreateMenu: React.FC<CreateMenuProps> = ({onExit, onUserError, onEnter}) => {
 
     const router = useRouter();
 
@@ -27,7 +29,10 @@ const CreateMenu: React.FC<CreateMenuProps> = ({onExit}) => {
     
     const joinRoom = () => {
         if (username) {
+            onEnter();
             router.push(`/chatroom/${roomNumber}?username=${username}&icon=${icon}`);
+        } else {
+            onUserError();
         }
     }
 
@@ -51,7 +56,7 @@ const CreateMenu: React.FC<CreateMenuProps> = ({onExit}) => {
             <div className="w-full flex flex-col gap-2 pb-4 items-center">
                 <motion.button whileHover={{scale: 1.03}} whileTap={{scale: 1.1, backgroundColor: "#555555"}} onClick={joinRoom} className="border-bgDark border-[1px] button-bg text-2xl py-2 w-full drop-shadow-md" >Create Room</motion.button>
                 <motion.button whileHover={{scale: 1.03}} whileTap={{scale: 1.1, backgroundColor: "#555555"}} onClick={handleGenerateId} className="border-bgDark border-[1px] button-bg text-xl py-2 w-full drop-shadow-md">Generate New Room ID</motion.button>
-                <motion.button whileHover={{scale: 1.03}} whileTap={{scale: 1.1, backgroundColor: "#555555"}} onClick={onExit} className="border-bgDark border-[1px] button-bg text-xl py-2 w-2/3 drop-shadow-md" >Back</motion.button>
+                <motion.button whileHover={{scale: 1.03}} whileTap={{scale: 1.1, backgroundColor: "#555555"}} onClick={onExit} className="sub-text-color text-xl py-0 drop-shadow-md hover:underline " >Back</motion.button>
             </div>
 
         </motion.div>

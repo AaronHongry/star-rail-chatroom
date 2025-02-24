@@ -6,7 +6,15 @@ import CreateMenu from "./createMenu";
 import UserMenu from "./userMenu";
 import JoinMenu from "./joinMenu";
 
-const WelcomeMenu = () => {
+interface WelcomeMenuProps {
+    handleUserError: () => void,
+    handleRoomNameError: () => void,
+    handleEmptyRoomError: () => void,
+    handleEmptyError: () => void,
+    handleEnter: () => void
+}
+
+const WelcomeMenu: React.FC<WelcomeMenuProps> = ({handleUserError, handleRoomNameError, handleEmptyRoomError, handleEmptyError, handleEnter}) => {
 
     const [menu, setMenu] = useState("welcome");
     const [welcome, setWelcome] = useState(true);
@@ -32,7 +40,7 @@ const WelcomeMenu = () => {
 
 
     return (
-        <div className="relative w-1/3 h-3/4 flex flex-col justify-center items-center">
+        <motion.div initial={{opacity: 0}} animate={{opacity: 1}} exit={{y: 20, opacity: 0}} className="relative w-1/3 h-3/4 flex flex-col justify-center items-center">
 
             <div className="border-bgDark border-opacity-30 border-2 h-full w-full absolute right-2 top-2"></div>
 
@@ -50,18 +58,17 @@ const WelcomeMenu = () => {
                 <AnimatePresence onExitComplete={() => {
                     if (menu == "welcome") setWelcome(true);
                 }}>
-                    {create && <CreateMenu onExit={handleBackWelcome}/>}
+                    {create && <CreateMenu onExit={handleBackWelcome} onUserError={handleUserError} onEnter={handleEnter}/>}
                 </AnimatePresence>
                 <AnimatePresence onExitComplete={() => {
                     if (menu == "create") setCreate(true);
                     if (menu == "join") setJoin(true);
                     if (menu == "welcome") setWelcome(true);
                 }}>
-                    {join && <JoinMenu onExit={handleBackWelcome}/>}
+                    {join && <JoinMenu onExit={handleBackWelcome} onUserError={handleUserError} onRoomNameError={handleRoomNameError} onEmptyRoomError={handleEmptyRoomError} onEmptyError={handleEmptyError} onEnter={handleEnter}/>}
                 </AnimatePresence>
             </div>
-
-        </div>
+        </motion.div>
     );
 }
 
