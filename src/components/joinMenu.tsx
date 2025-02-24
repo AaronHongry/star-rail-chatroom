@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
+
 interface JoinMenuInterface {
     onExit: () => void,
     onUserError: () => void,
@@ -22,10 +23,28 @@ const JoinMenu: React.FC<JoinMenuInterface> = ({onExit, onUserError, onRoomNameE
     const [username, setUsername] = useState("");
     const [icon, setIcon] = useState("tra-b.png");
 
-    const joinRoom = () => {
+
+    const joinRoom = async () => {
         if (roomNumber && username) {
-            onEnter();
-            router.push(`/chatroom/${roomNumber.toUpperCase()}?username=${username}&icon=${icon}`);
+            try {
+                const response = await fetch("/api/checkRoom", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({roomNumber})
+                });
+
+                console.log(response);
+                if (response.ok) {
+                    onEnter();
+                    router.push(`/chatroom/${roomNumber.toUpperCase()}?username=${username}&icon=${icon}`);
+                } else {
+                    onEmptyRoomError();
+                }
+            } catch (error) {
+                console.log("Trouble reading api", error);
+            }
         }
 
         if (!username && !roomNumber) {

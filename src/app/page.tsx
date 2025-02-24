@@ -53,7 +53,7 @@ export default function Home() {
             const errorTimeout = setTimeout(() => setEmptyError(false), 1000);
             return () => clearTimeout(errorTimeout);
         }
-    }, [userError, roomNameError, emptyError]);
+    }, [userError, roomNameError, emptyRoomError, emptyError]);
 
     return (
         <div className="relative bg-image w-screen h-screen flex flex-col justify-center items-center">
