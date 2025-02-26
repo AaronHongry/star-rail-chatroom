@@ -37,7 +37,7 @@ const CreateMenu: React.FC<CreateMenuProps> = ({onExit, onUserError, onEnter}) =
     }
 
     return (
-        <motion.div initial={{y: 30, opacity: 0}} animate={{y: 0, opacity: 1, transition: {ease: "easeOut", duration: 0.2}}} exit={{y: 30, opacity: 0}} transition={{ease: "anticipate"}} className="w-full h-full flex flex-col items-center justify-between gap-3 py-3 px-8">
+        <motion.div initial={{y: 30, opacity: 0}} animate={{y: 0, opacity: 1, transition: {ease: "easeOut", duration: 0.2}}} exit={{y: 30, opacity: 0}} transition={{ease: "anticipate"}} className="w-full h-full flex flex-col items-center justify-between gap-3 py-3 lg:px-8 px-3">
             <div className="text-center">
                 <h1 className="text-xl">Room ID:</h1>
                 <motion.h1 key={roomNumber} initial={{y: -5}} animate={{y: 0}} className="text-5xl font-semibold">{roomNumber}</motion.h1>
@@ -45,12 +45,12 @@ const CreateMenu: React.FC<CreateMenuProps> = ({onExit, onUserError, onEnter}) =
 
             <div className="flex flex-col w-full justify-center items-center gap-6">
                 <h1 className="text-xl">Select Icon</h1>
-                <div className="flex flex-row w-full h-36 justify-between px-4">
-                    <motion.div whileHover={{scale: 1.05}} whileTap={{scale: 1.1}} onClick={() => setIcon("tra-b.png")} className={`${icon == "tra-b.png" ? "button-bg drop-shadow-md" : ""} flex items-center justify-center w-36 h-36 transition-opacity hover:border-2 hover:border-slate-600 hover:border-opacity-30`}><Image alt="trailblazer" src="/images/tra-b.png" className="w-32 h-32" width={128} height={128}/></motion.div>
-                    <motion.div whileHover={{scale: 1.05}} whileTap={{scale: 1.1}} onClick={() => setIcon("dan-h.png")} className={`${icon == "dan-h.png" ? "button-bg drop-shadow-md" : ""} flex items-center justify-center w-36 h-36 transition-opacity hover:border-2 hover:border-slate-600 hover:border-opacity-30`}><Image alt="trailblazer" src="/images/dan-h.png" className="w-32 h-32" width={128} height={128}/></motion.div>
-                    <motion.div whileHover={{scale: 1.05}} whileTap={{scale: 1.1}} onClick={() => setIcon("mar-7.png")} className={`${icon == "mar-7.png" ? "button-bg drop-shadow-md" : ""} flex items-center justify-center w-36 h-36 transition-opacity hover:border-2 hover:border-slate-600 hover:border-opacity-30`}><Image alt="trailblazer" src="/images/mar-7.png" className="w-32 h-32" width={128} height={128}/></motion.div>
+                <div className="flex flex-row w-full lg:h-36 h-24 justify-between px-4">
+                    <motion.div whileHover={{scale: 1.05}} whileTap={{scale: 1.1}} onClick={() => setIcon("tra-b.png")} className={`${icon == "tra-b.png" ? "button-bg drop-shadow-md" : ""} flex items-center justify-center lg:w-36 lg:h-36 w-24 h-24 transition-opacity hover:border-2 hover:border-slate-600 hover:border-opacity-30`}><Image alt="trailblazer" src="/images/tra-b.png" className="lg:w-32 lg:h-32 w-20 h-20" width={128} height={128}/></motion.div>
+                    <motion.div whileHover={{scale: 1.05}} whileTap={{scale: 1.1}} onClick={() => setIcon("dan-h.png")} className={`${icon == "dan-h.png" ? "button-bg drop-shadow-md" : ""} flex items-center justify-center lg:w-36 lg:h-36 w-24 h-24 transition-opacity hover:border-2 hover:border-slate-600 hover:border-opacity-30`}><Image alt="trailblazer" src="/images/dan-h.png" className="lg:w-32 lg:h-32 w-20 h-20" width={128} height={128}/></motion.div>
+                    <motion.div whileHover={{scale: 1.05}} whileTap={{scale: 1.1}} onClick={() => setIcon("mar-7.png")} className={`${icon == "mar-7.png" ? "button-bg drop-shadow-md" : ""} flex items-center justify-center lg:w-36 lg:h-36 w-24 h-24 transition-opacity hover:border-2 hover:border-slate-600 hover:border-opacity-30`}><Image alt="trailblazer" src="/images/mar-7.png" className="lg:w-32 lg:h-32 w-20 h-20" width={128} height={128}/></motion.div>
                 </div>
-                <input onChange={e => setUsername(e.target.value)} className="w-1/2 h-8 px-2 text-center focus:outline-none" maxLength={12} placeholder="Enter a Username"/>
+                <input onChange={e => setUsername(e.target.value)} className="lg:w-1/2 w-full h-8 px-2 text-center focus:outline-none" maxLength={12} placeholder="Enter a Username"/>
             </div>
 
             <div className="w-full flex flex-col gap-2 pb-4 items-center">

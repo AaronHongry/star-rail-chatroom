@@ -40,13 +40,13 @@ const WelcomeMenu: React.FC<WelcomeMenuProps> = ({handleUserError, handleRoomNam
 
 
     return (
-        <motion.div initial={{opacity: 0}} animate={{opacity: 1}} exit={{y: 20, opacity: 0}} className="relative w-1/3 h-3/4 flex flex-col justify-center items-center">
+        <motion.div initial={{opacity: 0}} animate={{opacity: 1}} exit={{y: 20, opacity: 0}} className="relative lg:w-1/3 w-11/12 lg:h-3/4 h-3/4 flex flex-col justify-center items-center">
 
             <div className="border-bgDark border-opacity-30 border-2 h-full w-full absolute right-2 top-2"></div>
 
             <div className="w-full h-full flex flex-col items-center rounded-tr-3xl drop-shadow-xl bg-dark overflow-hidden">
                 <div className="flex flex-col justify-center items-center border-b-[3px] w-full py-3 pt-12 border-b-lineBg bg">
-                    <h1 className="text-3xl font-bold">Honkai: Star Rail Chat Room</h1>
+                    <h1 className="lg:text-3xl text-2xl font-bold max-lg:text-center">Honkai: Star Rail Chat Room</h1>
                     <h2 className="text-lg font-medium sub-text-color">By @AaronHongry</h2>
                 </div>
                 <AnimatePresence onExitComplete={() => {
