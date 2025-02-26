@@ -71,7 +71,7 @@ const ChatRoom = () => {
     return (
         <div className="bg-image w-screen h-screen flex flex-col justify-center items-center">
             <AnimatePresence>
-                {leave && <motion.div initial={{y: 10, opacity: 0}} animate={{y: 0, opacity: 1}} exit={{y: 10, opacity: 0}} className="relative w-1/3 h-2/3 flex flex-col justify-center items-center">
+                {leave && <motion.div initial={{y: 10, opacity: 0}} animate={{y: 0, opacity: 1}} exit={{y: 10, opacity: 0}} className="relative lg:w-1/3 lg:h-2/3 w-11/12 h-3/4 flex flex-col justify-center items-center">
 
                     <div className="border-bgDark border-opacity-30 border-2 h-full w-full absolute right-2 top-2"></div>
 
